@@ -1,0 +1,38 @@
+name: 问题反馈
+description: 报告采集、查询、安装或备份问题
+title: '[Bug] '
+body:
+  - type: markdown
+    attributes:
+      value: 请使用合成数据或脱敏截图，不要上传评论数据库、Cookie 或账号信息。安全漏洞请通过 Security 页私密报告。
+  - type: input
+    id: version
+    attributes:
+      label: 扩展版本
+      placeholder: '0.3.3'
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 浏览器与操作系统版本
+      placeholder: 'Edge 版本号 / Windows 11'
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      description: 说明页面类型、是否登录、进行的操作及出现频率。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期结果与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: 错误信息或脱敏截图

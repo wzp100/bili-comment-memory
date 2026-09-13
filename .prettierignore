@@ -1,0 +1,8 @@
+node_modules/
+dist/
+output/
+.playwright-mcp/
+package-lock.json
+*.zip
+public/*LICENSE*
+public/*NOTICES*

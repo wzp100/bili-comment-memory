@@ -1,0 +1,7 @@
+本扩展随包分发 @sqlite.org/sqlite-wasm 3.53.0-build1。
+
+项目：https://github.com/sqlite/sqlite-wasm
+模块包装代码许可证：Apache License 2.0，见 SQLITE-WASM-LICENSE.txt。
+SQLite 核心及其官方 WASM 实现：公共领域，见 https://sqlite.org/copyright.html。
+
+第三方 JS/WASM 文件未作修改，仅在构建时复制到 vendor 目录。

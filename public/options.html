@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>本机评论记忆</title>
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside>
+        <div class="brand">
+          <span class="brand-icon">忆</span>
+          <div>评论记忆<small>BILIBILI · LOCAL</small></div>
+        </div>
+        <p class="intro">浏览过的发言，<br />下次遇见时记得。</p>
+        <div class="local-tag">● SQLite 本地存储</div>
+        <nav>
+          <a href="#records" class="selected">评论记录 <span>↗</span></a
+          ><a href="#data">数据管理 <span>↓</span></a>
+        </nav>
+        <div class="aside-bottom">
+          只记录页面中可见的评论。<br />不会自动翻页或访问历史视频。<br />本机记录不代表用户全部发言。
+        </div>
+      </aside>
+      <main>
+        <header>
+          <div>
+            <div class="eyebrow">YOUR LOCAL COMMENT ARCHIVE</div>
+            <h1>本机评论记录</h1>
+            <p>按用户与视频，找回曾经浏览到的评论。</p>
+          </div>
+          <label class="toggle"><input id="enabled" type="checkbox" checked /> 开启被动记录</label>
+        </header>
+        <section class="stats" aria-label="数据库统计">
+          <div><small>已记录评论</small><strong id="total-comments">—</strong></div>
+          <div><small>遇见用户</small><strong id="total-users">—</strong></div>
+          <div><small>来源视频</small><strong id="total-videos">—</strong></div>
+          <div>
+            <small>数据库占用</small><strong id="total-bytes">—</strong
+            ><small id="free-bytes"></small>
+          </div>
+        </section>
+        <section id="records" class="surface">
+          <div class="section-title">
+            <h2>查找评论</h2>
+            <span>按首次记录时间排序</span>
+          </div>
+          <form id="search">
+            <div class="search-main">
+              <input
+                id="keyword"
+                placeholder="搜索评论内容…"
+                aria-label="评论关键词"
+                maxlength="200"
+              /><button class="primary" type="submit">搜索记录</button>
+            </div>
+            <div class="filters">
+              <label>用户 UID<input id="uid" placeholder="精确匹配" /></label
+              ><label>昵称<input id="name" placeholder="包含文字" maxlength="200" /></label
+              ><label>视频 BV 号<input id="bvid" placeholder="BV…" /></label
+              ><label>记录开始日期<input type="date" id="from" /></label
+              ><label>记录结束日期<input type="date" id="to" /></label>
+            </div>
+          </form>
+          <div id="search-state" class="hint" role="status">正在连接本地数据库…</div>
+          <div id="results"></div>
+          <button id="more" hidden>加载更多</button>
+        </section>
+        <section id="data" class="surface">
+          <div class="section-title">
+            <h2>数据管理</h2>
+            <span id="engine">SQLite</span>
+          </div>
+          <p class="hint">
+            备份保存为标准 SQLite 文件，当前单次上限 256
+            MiB。卸载扩展可能清除数据，建议定期导出。升级或删除记录后，可压缩数据库回收空闲空间；压缩保留全部现有评论，需要额外临时磁盘空间。
+          </p>
+          <div class="tools">
+            <button id="export">导出 SQLite 备份</button
+            ><label class="file-button"
+              >导入并合并备份<input
+                id="import"
+                type="file"
+                accept=".sqlite,.sqlite3,.db"
+                hidden /></label
+            ><button id="compact">压缩数据库</button
+            ><button id="delete-user" class="danger">删除指定 UID 记录</button
+            ><button id="clear" class="danger">清空全部记录</button>
+          </div>
+          <div id="operation-state" class="hint" role="status"></div>
+        </section>
+        <footer>评论记忆 · 数据留在当前 Chrome 配置中 · <span id="quota"></span></footer>
+      </main>
+    </div>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

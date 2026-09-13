@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "BiliMemo · B 站评论记忆",
+  "description": "随浏览记录可见评论，悬浮头像查看本机记录的跨视频发言。数据仅存本地 SQLite。",
+  "version": "0.3.3",
+  "homepage_url": "https://github.com/wzp100/bili-comment-memory",
+  "minimum_chrome_version": "116",
+  "permissions": ["storage", "offscreen"],
+  "incognito": "not_allowed",
+  "background": { "service_worker": "background.js", "type": "module" },
+  "content_scripts": [
+    {
+      "matches": ["https://www.bilibili.com/video/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": { "default_title": "打开评论记忆", "default_popup": "popup.html" },
+  "options_page": "options.html",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}

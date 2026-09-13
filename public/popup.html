@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="app.css" />
+    <title>评论记忆</title>
+  </head>
+  <body class="popup">
+    <div class="brand"><span class="brand-icon">忆</span>评论记忆</div>
+    <p class="hint">浏览时记录，遇见时回看。<br />仅保存本机浏览到的可见评论。</p>
+    <label class="toggle"><input id="enabled" type="checkbox" /> 开启被动记录</label>
+    <p id="page-status" class="hint" role="status">正在获取页面状态…</p>
+    <button id="open" class="primary">打开本地评论库 ↗</button>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

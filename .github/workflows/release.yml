@@ -1,0 +1,41 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: 校验版本标签并提取更新说明
+        run: node scripts/release-notes.mjs
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npm run package
+      - run: npm run verify:package
+      - run: npx playwright install --with-deps chromium
+      - run: npm run verify:browser
+      - name: 发布 ZIP 与校验和
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "$GITHUB_REF_NAME"
+          output/releases/*.zip output/releases/*.sha256
+          --verify-tag --title "BiliMemo $GITHUB_REF_NAME"
+          --notes-file output/release-notes.md
